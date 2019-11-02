@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+    id 'war'
+    id 'org.springframework.boot' version '2.2.0.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+}
+
+group 'com.alsjava.courses.servers'
+version new File("$rootProject.projectDir/src/main/resources/version".toString()).text.trim()
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven { url "http://maven.vaadin.com/vaadin-addons" }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom configurations.annotationProcessor
+    }
+}
+
+ext {
+    junit_jupiter_version = '5.5.2'
+    spring_boot_version = '2.2.0.RELEASE'
+    vaadin_version = '14.0.11'
+    lombok_version = '1.18.10'
+    jersey_version = '2.29'
+    gson_version = '2.8.6'
+    h2_version = '1.4.199'
+    spring_data_provider_version = '2.0.1'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.vaadin:vaadin-bom:${vaadin_version}"
+    }
+}
+
+dependencies {
+    // Vaadin
+    implementation "com.vaadin:vaadin-bom:$vaadin_version"
+    implementation "com.vaadin:vaadin-spring-boot-starter:$vaadin_version"
+    implementation "org.vaadin.artur:spring-data-provider:$spring_data_provider_version"
+    // Spring Boot
+    implementation "org.springframework.boot:spring-boot-starter-web:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-starter-jersey:$spring_boot_version"
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa:$spring_boot_version"
+    // DB
+    implementation "com.h2database:h2:$h2_version"
+    // Boilerplate Code
+    compileOnly "org.projectlombok:lombok:$lombok_version"
+    annotationProcessor "org.projectlombok:lombok:$lombok_version"
+    // Test
+    testImplementation "org.junit.jupiter:junit-jupiter:$junit_jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
+}
+
+test {
+    useJUnitPlatform()
+}
