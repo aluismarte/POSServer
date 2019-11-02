@@ -16,6 +16,7 @@ public class LoginResponse extends Response {
 
     private String session;
     private Long terminal;
+    private String terminalName;
 
     public LoginResponse(int code) {
         super(code);

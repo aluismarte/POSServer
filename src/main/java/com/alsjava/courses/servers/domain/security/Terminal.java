@@ -20,6 +20,10 @@ import javax.validation.constraints.NotBlank;
 public class Terminal extends AuditDomain {
 
     @NotBlank
+    @Column
+    private String name;
+
+    @NotBlank
     @Column(length = Constants.USERNAME_LENGTH, unique = true)
     private String username;
 

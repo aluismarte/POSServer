@@ -38,6 +38,6 @@ public class APIController {
         LoginResponse loginResponse = new LoginResponse(CommunicationCodes.OK);
         loginResponse.setSession(token);
         loginResponse.setTerminal(terminal.getId());
-        return ResponseEntity.ok(new LoginResponse(token, terminal.getId()));
+        return ResponseEntity.ok(new LoginResponse(token, terminal.getId(), terminal.getName()));
     }
 }
