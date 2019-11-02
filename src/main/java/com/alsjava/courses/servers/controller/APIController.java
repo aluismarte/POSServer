@@ -40,4 +40,8 @@ public class APIController {
         loginResponse.setTerminal(terminal.getId());
         return ResponseEntity.ok(new LoginResponse(token, terminal.getId(), terminal.getName()));
     }
+
+    // Necesito servicio para solicitar las facturas.
+    // Necesito servicio para solicitar los productos..
+    // Necesito servicio para solicitar el reporte...
 }

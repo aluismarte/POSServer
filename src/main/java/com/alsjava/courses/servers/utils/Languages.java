@@ -12,16 +12,13 @@ import java.util.*;
 public class Languages {
 
     public static final Locale ENGLISH = Locale.ENGLISH;
-    public static final Locale SPANISH = new Locale("es");
 
     private static volatile Languages instance = null;
 
-    private static PropertyResourceBundle PRB_ES;
     private static PropertyResourceBundle PRB_EN;
 
     private Languages() {
         try {
-            PRB_ES = new PropertyResourceBundle(new InputStreamReader(getClass().getResourceAsStream("/posserver_es.properties"), StandardCharsets.UTF_8));
             PRB_EN = new PropertyResourceBundle(new InputStreamReader(getClass().getResourceAsStream("/posserver.properties"), StandardCharsets.UTF_8));
         } catch (Exception ignored) {
             System.out.println("Problem loading Language Pack");
@@ -43,19 +40,11 @@ public class Languages {
     public static List<Locale> values() {
         List<Locale> locales = new ArrayList<>();
         locales.add(ENGLISH);
-        locales.add(SPANISH);
         return locales;
     }
 
     private ResourceBundle getI18N() {
-        try {
-            if (VaadinSession.getCurrent().getLocale().getLanguage().equals(SPANISH.getLanguage())) {
-                return PRB_ES;
-            }
-            return PRB_EN;
-        } catch (Exception ignored) {
-            return PRB_EN;
-        }
+        return PRB_EN;
     }
 
     public String i18n(String key) {
@@ -70,18 +59,11 @@ public class Languages {
     }
 
     public Locale getDefault() {
-        if (VaadinSession.getCurrent().getLocale().getLanguage().equals(SPANISH.getLanguage())) {
-            return SPANISH;
-        }
         return ENGLISH;
     }
 
     public static void setDefault(String language) {
-        if (SPANISH.getLanguage().equals(language)) {
-            setDefault(SPANISH);
-        } else {
-            setDefault(ENGLISH);
-        }
+        setDefault(ENGLISH);
     }
 
     public static void setDefault(Locale locale) {
@@ -91,16 +73,10 @@ public class Languages {
     }
 
     public Locale getLocale(String language) {
-        if (SPANISH.getLanguage().equals(language)) {
-            return SPANISH;
-        }
         return ENGLISH;
     }
 
     public String getMapLanguage(Locale language) {
-        if (SPANISH.getLanguage().equals(language.getLanguage())) {
-            return i18n("language.spanish");
-        }
         return i18n("language.english");
     }
 }
