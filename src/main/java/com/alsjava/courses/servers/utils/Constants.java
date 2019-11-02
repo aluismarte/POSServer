@@ -61,6 +61,10 @@ public class Constants {
         this.applicationContext.addApplicationListener((ApplicationListener<ContextClosedEvent>) event -> POSServer.stop());
     }
 
+    public void autoWiredClass(Object objectToWired) {
+        applicationContext.getAutowireCapableBeanFactory().autowireBean(objectToWired);
+    }
+
     public <T> T convert(String data, Class<T> validClass) {
         if (data != null && !data.isEmpty()) {
             try {

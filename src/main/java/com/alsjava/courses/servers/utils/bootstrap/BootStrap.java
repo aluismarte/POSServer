@@ -3,12 +3,10 @@ package com.alsjava.courses.servers.utils.bootstrap;
 import com.alsjava.courses.servers.utils.bootstrap.control.BasicProducts;
 import com.alsjava.courses.servers.utils.bootstrap.security.BasicTerminals;
 import com.alsjava.courses.servers.utils.bootstrap.security.BasicUsers;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by aluis on 11/2/19.
  */
-@Component
 public class BootStrap {
 
     private BasicUsers basicUsers = new BasicUsers();

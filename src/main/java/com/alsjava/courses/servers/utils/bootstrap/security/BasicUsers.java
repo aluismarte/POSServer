@@ -3,6 +3,7 @@ package com.alsjava.courses.servers.utils.bootstrap.security;
 import com.alsjava.courses.servers.domain.security.User;
 import com.alsjava.courses.servers.model.security.HashTools;
 import com.alsjava.courses.servers.repository.security.UserRepository;
+import com.alsjava.courses.servers.utils.Constants;
 import com.alsjava.courses.servers.utils.bootstrap.BootStrapInsert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,11 +15,14 @@ import java.util.Calendar;
 /**
  * Created by aluis on 11/2/19.
  */
-@Component
 public class BasicUsers implements BootStrapInsert {
 
     @Autowired
     private UserRepository userRepository;
+
+    public BasicUsers() {
+        Constants.get().autoWiredClass(this);
+    }
 
     @Override
     public void insert() {

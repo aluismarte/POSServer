@@ -4,19 +4,12 @@ import com.alsjava.courses.servers.utils.Constants;
 import com.alsjava.courses.servers.utils.bootstrap.BootStrap;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-
-import javax.servlet.annotation.WebServlet;
 
 /**
  * Created by aluis on 11/2/19.
  */
-@WebServlet
-@EnableTransactionManagement
 @SpringBootApplication
-public class POSServer extends SpringBootServletInitializer {
+public class POSServer {
 
     private static BootStrap bootStrap;
 
@@ -39,10 +32,5 @@ public class POSServer extends SpringBootServletInitializer {
         if (bootStrap != null) {
             bootStrap.destroy();
         }
-    }
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(POSServer.class);
     }
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,9 +19,10 @@ import java.util.List;
 @Table(name = "invoices")
 public class Invoice extends AuditDomain {
 
-    @Column
+    @OneToOne
     private Terminal terminal;
 
+    @NotBlank
     @Column
     private String serial;
 

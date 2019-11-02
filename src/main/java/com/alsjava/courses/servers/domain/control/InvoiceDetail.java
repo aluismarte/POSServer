@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 @Table(name = "invoice_details")
 public class InvoiceDetail extends AuditDomain {
 
-    @Column
+    @OneToOne
     private Product product;
 
     @Column
