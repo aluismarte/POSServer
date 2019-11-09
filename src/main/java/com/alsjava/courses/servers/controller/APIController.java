@@ -56,6 +56,9 @@ public class APIController {
 
     @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ResponseEntity<ProductsResponse> products(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        if (!Constants.LOGIN_MANAGER.isLogin(session)) {
+            return ResponseEntity.ok(new ProductsResponse(CommunicationCodes.NO_ACTIVE_LOGIN));
+        }
         ProductsRequest productsRequest = Constants.get().convert(request, ProductsRequest.class);
         if (productsRequest == null) {
             return ResponseEntity.ok(new ProductsResponse(CommunicationCodes.SYNTAX_ERROR));
@@ -65,6 +68,9 @@ public class APIController {
 
     @RequestMapping(value = "/invoices", method = RequestMethod.POST)
     public ResponseEntity<InvoicesResponse> invoices(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        if (!Constants.LOGIN_MANAGER.isLogin(session)) {
+            return ResponseEntity.ok(new InvoicesResponse(CommunicationCodes.NO_ACTIVE_LOGIN));
+        }
         InvoicesRequest invoicesRequest = Constants.get().convert(request, InvoicesRequest.class);
         if (invoicesRequest == null) {
             return ResponseEntity.ok(new InvoicesResponse(CommunicationCodes.SYNTAX_ERROR));
@@ -74,6 +80,9 @@ public class APIController {
 
     @RequestMapping(value = "/invoice", method = RequestMethod.POST)
     public ResponseEntity<InvoiceResponse> invoice(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        if (!Constants.LOGIN_MANAGER.isLogin(session)) {
+            return ResponseEntity.ok(new InvoiceResponse(CommunicationCodes.NO_ACTIVE_LOGIN));
+        }
         InvoiceRequest invoiceRequest = Constants.get().convert(request, InvoiceRequest.class);
         if (invoiceRequest == null) {
             return ResponseEntity.ok(new InvoiceResponse(CommunicationCodes.SYNTAX_ERROR));
@@ -83,6 +92,9 @@ public class APIController {
 
     @RequestMapping(value = "/report", method = RequestMethod.POST)
     public ResponseEntity<ReportResponse> report(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        if (!Constants.LOGIN_MANAGER.isLogin(session)) {
+            return ResponseEntity.ok(new ReportResponse(CommunicationCodes.NO_ACTIVE_LOGIN));
+        }
         ReportRequest invoiceRequest = Constants.get().convert(request, ReportRequest.class);
         if (invoiceRequest == null) {
             return ResponseEntity.ok(new ReportResponse(CommunicationCodes.SYNTAX_ERROR));
