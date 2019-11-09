@@ -87,6 +87,7 @@ public class APIController {
         if (invoiceRequest == null) {
             return ResponseEntity.ok(new InvoiceResponse(CommunicationCodes.SYNTAX_ERROR));
         }
+        // TODO falta terminar
         return ResponseEntity.ok(new InvoiceResponse());
     }
 
@@ -99,6 +100,7 @@ public class APIController {
         if (invoiceRequest == null) {
             return ResponseEntity.ok(new ReportResponse(CommunicationCodes.SYNTAX_ERROR));
         }
+        // TODO falta terminar
         return ResponseEntity.ok(new ReportResponse());
     }
 }
