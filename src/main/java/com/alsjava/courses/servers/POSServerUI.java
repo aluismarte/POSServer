@@ -2,7 +2,6 @@ package com.alsjava.courses.servers;
 
 import com.alsjava.courses.servers.model.LoginSession;
 import com.alsjava.courses.servers.ui.App;
-import com.alsjava.courses.servers.ui.Login;
 import com.vaadin.flow.component.AttachEvent;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.page.BodySize;
@@ -32,9 +31,7 @@ public class POSServerUI extends VerticalLayout {
         if (loginSession != null) {
             startApp();
         } else {
-            Login login = new Login();
-            login.setLoginListener(this::startApp);
-            add(login);
+            add(new App());
         }
     }
 

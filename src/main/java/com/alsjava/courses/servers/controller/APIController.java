@@ -3,11 +3,8 @@ package com.alsjava.courses.servers.controller;
 import com.alsjava.courses.servers.domain.security.Terminal;
 import com.alsjava.courses.servers.model.CommunicationConstants;
 import com.alsjava.courses.servers.model.communication.CommunicationCodes;
-import com.alsjava.courses.servers.model.communication.request.LoginRequest;
-import com.alsjava.courses.servers.model.communication.request.ProductsRequest;
-import com.alsjava.courses.servers.model.communication.response.InvoicesResponse;
-import com.alsjava.courses.servers.model.communication.response.LoginResponse;
-import com.alsjava.courses.servers.model.communication.response.ProductsResponse;
+import com.alsjava.courses.servers.model.communication.request.*;
+import com.alsjava.courses.servers.model.communication.response.*;
 import com.alsjava.courses.servers.repository.control.InvoiceRespository;
 import com.alsjava.courses.servers.repository.control.ProductRespository;
 import com.alsjava.courses.servers.repository.security.TerminalRespository;
@@ -35,6 +32,11 @@ public class APIController {
     @Autowired
     private InvoiceRespository invoiceRespository;
 
+    @RequestMapping(value = "/up", method = RequestMethod.GET)
+    public ResponseEntity<String> up() {
+        return ResponseEntity.ok("OK");
+    }
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginResponse> login(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
         LoginRequest loginRequest = Constants.get().convert(request, LoginRequest.class);
@@ -52,7 +54,7 @@ public class APIController {
         return ResponseEntity.ok(new LoginResponse(token, terminal.getId(), terminal.getName()));
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    @RequestMapping(value = "/products", method = RequestMethod.POST)
     public ResponseEntity<ProductsResponse> products(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
         ProductsRequest productsRequest = Constants.get().convert(request, ProductsRequest.class);
         if (productsRequest == null) {
@@ -61,18 +63,30 @@ public class APIController {
         return ResponseEntity.ok(new ProductsResponse(productRespository.findAll()));
     }
 
-    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
+    @RequestMapping(value = "/invoices", method = RequestMethod.POST)
     public ResponseEntity<InvoicesResponse> invoices(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
-        ProductsRequest productsRequest = Constants.get().convert(request, ProductsRequest.class);
-        if (productsRequest == null) {
+        InvoicesRequest invoicesRequest = Constants.get().convert(request, InvoicesRequest.class);
+        if (invoicesRequest == null) {
             return ResponseEntity.ok(new InvoicesResponse(CommunicationCodes.SYNTAX_ERROR));
         }
         return ResponseEntity.ok(new InvoicesResponse(invoiceRespository.findAll()));
     }
 
-    // Hacer una factura
-    // Reponte total de facturas vendidas comprendidas en un rando de fecha
+    @RequestMapping(value = "/invoice", method = RequestMethod.POST)
+    public ResponseEntity<InvoiceResponse> invoice(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        InvoiceRequest invoiceRequest = Constants.get().convert(request, InvoiceRequest.class);
+        if (invoiceRequest == null) {
+            return ResponseEntity.ok(new InvoiceResponse(CommunicationCodes.SYNTAX_ERROR));
+        }
+        return ResponseEntity.ok(new InvoiceResponse());
+    }
 
-    // Necesito servicio para solicitar las facturas.
-    // Necesito servicio para solicitar el reporte.
+    @RequestMapping(value = "/report", method = RequestMethod.POST)
+    public ResponseEntity<ReportResponse> report(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        ReportRequest invoiceRequest = Constants.get().convert(request, ReportRequest.class);
+        if (invoiceRequest == null) {
+            return ResponseEntity.ok(new ReportResponse(CommunicationCodes.SYNTAX_ERROR));
+        }
+        return ResponseEntity.ok(new ReportResponse());
+    }
 }
