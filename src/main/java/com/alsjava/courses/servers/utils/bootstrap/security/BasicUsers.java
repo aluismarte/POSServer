@@ -6,7 +6,6 @@ import com.alsjava.courses.servers.repository.security.UserRepository;
 import com.alsjava.courses.servers.utils.Constants;
 import com.alsjava.courses.servers.utils.bootstrap.BootStrapInsert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

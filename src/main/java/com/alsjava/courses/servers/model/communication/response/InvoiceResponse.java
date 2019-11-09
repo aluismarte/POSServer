@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by aluis on 11/9/19.
  */
@@ -13,6 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class InvoiceResponse extends Response {
+
+    private String serial;
+    private LocalDateTime saleDateTime;
 
     public InvoiceResponse(int code) {
         super(code);
