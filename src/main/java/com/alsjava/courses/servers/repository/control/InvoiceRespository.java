@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface InvoiceRespository extends JpaRepository<Invoice, Long> {
+
+    Invoice findBySerial(String serial);
 }

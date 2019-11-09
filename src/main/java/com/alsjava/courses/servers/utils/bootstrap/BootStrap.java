@@ -1,5 +1,6 @@
 package com.alsjava.courses.servers.utils.bootstrap;
 
+import com.alsjava.courses.servers.utils.bootstrap.control.BasicInvoices;
 import com.alsjava.courses.servers.utils.bootstrap.control.BasicProducts;
 import com.alsjava.courses.servers.utils.bootstrap.security.BasicTerminals;
 import com.alsjava.courses.servers.utils.bootstrap.security.BasicUsers;
@@ -12,6 +13,7 @@ public class BootStrap {
     private BasicUsers basicUsers = new BasicUsers();
     private BasicTerminals basicTerminals = new BasicTerminals();
     private BasicProducts basicProducts = new BasicProducts();
+    private BasicInvoices basicInvoices = new BasicInvoices();
 
     public BootStrap() {
     }
@@ -20,6 +22,7 @@ public class BootStrap {
         basicUsers.insert();
         basicTerminals.insert();
         basicProducts.insert();
+        basicInvoices.insert();
         System.out.println("Finish Bootstrap load");
     }
 
