@@ -52,7 +52,7 @@ public class APIController {
         return ResponseEntity.ok(new LoginResponse(token, terminal.getId(), terminal.getName()));
     }
 
-    @RequestMapping(value = "/products", method = RequestMethod.POST)
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
     public ResponseEntity<ProductsResponse> products(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
         ProductsRequest productsRequest = Constants.get().convert(request, ProductsRequest.class);
         if (productsRequest == null) {
