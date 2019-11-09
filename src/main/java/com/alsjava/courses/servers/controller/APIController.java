@@ -9,7 +9,6 @@ import com.alsjava.courses.servers.repository.control.InvoiceRespository;
 import com.alsjava.courses.servers.repository.control.ProductRespository;
 import com.alsjava.courses.servers.repository.security.TerminalRespository;
 import com.alsjava.courses.servers.utils.Constants;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,14 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class APIController {
 
-    @Autowired
-    private TerminalRespository terminalRespository;
+    private final TerminalRespository terminalRespository;
+    private final ProductRespository productRespository;
+    private final InvoiceRespository invoiceRespository;
 
-    @Autowired
-    private ProductRespository productRespository;
-
-    @Autowired
-    private InvoiceRespository invoiceRespository;
+    public APIController(TerminalRespository terminalRespository, ProductRespository productRespository, InvoiceRespository invoiceRespository) {
+        this.terminalRespository = terminalRespository;
+        this.productRespository = productRespository;
+        this.invoiceRespository = invoiceRespository;
+    }
 
     @RequestMapping(value = "/up", method = RequestMethod.GET)
     public ResponseEntity<String> up() {
