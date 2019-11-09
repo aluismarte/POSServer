@@ -21,6 +21,7 @@ public class MenuPanel extends VerticalLayout implements UIBuilder {
 
     @Override
     public void buildLayout() {
+        // TODO debo agregar los menus
     }
 
     @Override
