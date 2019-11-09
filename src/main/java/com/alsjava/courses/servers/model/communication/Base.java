@@ -5,6 +5,5 @@ package com.alsjava.courses.servers.model.communication;
  */
 public class Base {
 
-
     protected int code = CommunicationCodes.INTERNAL_ERROR;
 }

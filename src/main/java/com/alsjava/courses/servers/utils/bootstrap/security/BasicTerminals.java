@@ -23,6 +23,9 @@ public class BasicTerminals implements BootStrapInsert {
     public void insert() {
         create("TM1", "demo", "demo");
         create("TM2", "terminal", "terminal");
+        create("Terminal Jeimy", "jeimy", "jeimy");
+        create("Terminal maria", "maria", "maria");
+        create("Terminal Rebeca", "rebeca", "rebeca");
     }
 
     private Terminal create(String name, String username, String password) {
