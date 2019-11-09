@@ -1,6 +1,6 @@
 package com.alsjava.courses.servers.repository.control;
 
-import com.alsjava.courses.servers.domain.control.Product;
+import com.alsjava.courses.servers.domain.control.Invoice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
  * Created by aluis on 11/2/19.
  */
 @Repository
-public interface InvoiceRespository extends JpaRepository<Product, Long> {
+public interface InvoiceRespository extends JpaRepository<Invoice, Long> {
 }

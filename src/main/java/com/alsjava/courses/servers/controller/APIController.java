@@ -4,7 +4,12 @@ import com.alsjava.courses.servers.domain.security.Terminal;
 import com.alsjava.courses.servers.model.CommunicationConstants;
 import com.alsjava.courses.servers.model.communication.CommunicationCodes;
 import com.alsjava.courses.servers.model.communication.request.LoginRequest;
+import com.alsjava.courses.servers.model.communication.request.ProductsRequest;
+import com.alsjava.courses.servers.model.communication.response.InvoicesResponse;
 import com.alsjava.courses.servers.model.communication.response.LoginResponse;
+import com.alsjava.courses.servers.model.communication.response.ProductsResponse;
+import com.alsjava.courses.servers.repository.control.InvoiceRespository;
+import com.alsjava.courses.servers.repository.control.ProductRespository;
 import com.alsjava.courses.servers.repository.security.TerminalRespository;
 import com.alsjava.courses.servers.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +29,12 @@ public class APIController {
     @Autowired
     private TerminalRespository terminalRespository;
 
+    @Autowired
+    private ProductRespository productRespository;
+
+    @Autowired
+    private InvoiceRespository invoiceRespository;
+
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity<LoginResponse> login(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
         LoginRequest loginRequest = Constants.get().convert(request, LoginRequest.class);
@@ -41,7 +52,27 @@ public class APIController {
         return ResponseEntity.ok(new LoginResponse(token, terminal.getId(), terminal.getName()));
     }
 
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public ResponseEntity<ProductsResponse> products(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        ProductsRequest productsRequest = Constants.get().convert(request, ProductsRequest.class);
+        if (productsRequest == null) {
+            return ResponseEntity.ok(new ProductsResponse(CommunicationCodes.SYNTAX_ERROR));
+        }
+        return ResponseEntity.ok(new ProductsResponse(productRespository.findAll()));
+    }
+
+    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
+    public ResponseEntity<InvoicesResponse> invoices(@RequestParam(value = CommunicationConstants.SESSION_FORM_RESOURCE) String session, @RequestParam(value = CommunicationConstants.DATA_FORM_RESOURCE) String request) {
+        ProductsRequest productsRequest = Constants.get().convert(request, ProductsRequest.class);
+        if (productsRequest == null) {
+            return ResponseEntity.ok(new InvoicesResponse(CommunicationCodes.SYNTAX_ERROR));
+        }
+        return ResponseEntity.ok(new InvoicesResponse(invoiceRespository.findAll()));
+    }
+
+    // Hacer una factura
+    // Reponte total de facturas vendidas comprendidas en un rando de fecha
+
     // Necesito servicio para solicitar las facturas.
-    // Necesito servicio para solicitar los productos..
-    // Necesito servicio para solicitar el reporte...
+    // Necesito servicio para solicitar el reporte.
 }
