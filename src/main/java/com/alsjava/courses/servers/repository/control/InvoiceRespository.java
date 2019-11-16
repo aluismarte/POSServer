@@ -1,7 +1,6 @@
 package com.alsjava.courses.servers.repository.control;
 
 import com.alsjava.courses.servers.domain.control.Invoice;
-import jdk.vm.ci.meta.Local;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
