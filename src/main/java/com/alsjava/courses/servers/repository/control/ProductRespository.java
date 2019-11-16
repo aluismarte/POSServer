@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface ProductRespository extends JpaRepository<Product, Long> {
 
     Product findByName(String name);
+
+    Product findByIdAndEnabledIsTrue(Long id);
 }

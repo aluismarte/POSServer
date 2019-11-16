@@ -16,6 +16,6 @@ import java.util.Date;
 @Data
 public class ReportRequest extends Request {
 
-    private Date start;
-    private Date end;
+    private Date startDate;
+    private Date endDate;
 }

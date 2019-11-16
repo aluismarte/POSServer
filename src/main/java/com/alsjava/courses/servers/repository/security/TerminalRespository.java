@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface TerminalRespository extends JpaRepository<Terminal, Long> {
 
     Terminal findByUsernameAndPasswordAndEnabledIsTrue(String username, String password);
+
+    Terminal findByIdAndEnabledIsTrue(Long id);
 }

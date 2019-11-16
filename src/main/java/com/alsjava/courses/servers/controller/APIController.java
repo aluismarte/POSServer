@@ -1,5 +1,7 @@
 package com.alsjava.courses.servers.controller;
 
+import com.alsjava.courses.servers.domain.control.Invoice;
+import com.alsjava.courses.servers.domain.control.InvoiceDetail;
 import com.alsjava.courses.servers.domain.security.Terminal;
 import com.alsjava.courses.servers.model.CommunicationConstants;
 import com.alsjava.courses.servers.model.communication.CommunicationCodes;
@@ -14,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * Created by aluis on 11/2/19.
@@ -87,8 +95,24 @@ public class APIController {
         if (invoiceRequest == null) {
             return ResponseEntity.ok(new InvoiceResponse(CommunicationCodes.SYNTAX_ERROR));
         }
-        // TODO falta terminar
-        return ResponseEntity.ok(new InvoiceResponse());
+        try {
+            Terminal terminal = terminalRespository.findByIdAndEnabledIsTrue(Constants.LOGIN_MANAGER.getTerminal(session));
+            Invoice invoice = new Invoice();
+            invoice.setTerminal(terminal);
+            invoice.setSaleDateTime(LocalDateTime.now());
+            invoice.setSerial(UUID.randomUUID().toString().replaceAll("-", ""));
+            List<InvoiceDetail> invoiceDetails = invoiceRequest.getBuys().stream().map(buy -> {
+                InvoiceDetail invoiceDetail = new InvoiceDetail();
+                invoiceDetail.setProduct(productRespository.findByIdAndEnabledIsTrue(buy.getProduct().getId()));
+                invoiceDetail.setQuantity(buy.getQuantity());
+                invoiceDetail.setPrice(buy.getPrice());
+                return invoiceDetail;
+            }).collect(Collectors.toList());
+            invoice.setInvoiceDetails(invoiceDetails);
+            return ResponseEntity.ok(new InvoiceResponse(invoice.getSerial(), Timestamp.valueOf(invoice.getSaleDateTime())));
+        } catch (Exception ex) {
+            return ResponseEntity.ok(new InvoiceResponse(CommunicationCodes.INTERNAL_ERROR));
+        }
     }
 
     @RequestMapping(value = "/report", method = RequestMethod.POST)

@@ -1,4 +1,4 @@
-package com.alsjava.courses.servers.model;
+package com.alsjava.courses.servers.model.api;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

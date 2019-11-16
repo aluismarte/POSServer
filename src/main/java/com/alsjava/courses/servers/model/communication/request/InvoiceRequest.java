@@ -1,6 +1,6 @@
 package com.alsjava.courses.servers.model.communication.request;
 
-import com.alsjava.courses.servers.model.Buy;
+import com.alsjava.courses.servers.model.api.Buy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
