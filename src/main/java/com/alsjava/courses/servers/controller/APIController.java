@@ -4,6 +4,7 @@ import com.alsjava.courses.servers.domain.control.Invoice;
 import com.alsjava.courses.servers.domain.control.InvoiceDetail;
 import com.alsjava.courses.servers.domain.security.Terminal;
 import com.alsjava.courses.servers.model.CommunicationConstants;
+import com.alsjava.courses.servers.model.api.Report;
 import com.alsjava.courses.servers.model.communication.CommunicationCodes;
 import com.alsjava.courses.servers.model.communication.request.*;
 import com.alsjava.courses.servers.model.communication.response.*;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -124,7 +127,19 @@ public class APIController {
         if (invoiceRequest == null) {
             return ResponseEntity.ok(new ReportResponse(CommunicationCodes.SYNTAX_ERROR));
         }
-        // TODO falta terminar
+        LocalDateTime start = convertToLocalDateTimeViaInstant(invoiceRequest.getStartDate());
+        LocalDateTime end = convertToLocalDateTimeViaInstant(invoiceRequest.getEndDate());
+        List<Invoice> invoices = invoiceRespository.findAllByEnabledIsTrueAndSaleDateTimeBetween(start, end);
+        Report report = new Report();
+        report.setInvoiceQuantity(invoices.size());
+        double total = invoices.stream().flatMap(invoice -> invoice.getInvoiceDetails().stream()).mapToDouble(invoiceDetail -> (invoiceDetail.getPrice() * invoiceDetail.getQuantity())).sum();
+        report.setTotalSales(total);
         return ResponseEntity.ok(new ReportResponse());
+    }
+
+    private LocalDateTime convertToLocalDateTimeViaInstant(Date dateToConvert) {
+        return dateToConvert.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
     }
 }
